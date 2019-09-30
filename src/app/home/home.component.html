@@ -1,0 +1,47 @@
+<div class="d-flex justify-content-center" *ngIf="loader">
+  <div class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
+<div class="col-12 bg-white pt-3 pb-3">
+<!-- List of Tickets -->
+<h4 class="pb-1">Job Queues</h4>
+ <table class="table table-responsive">
+
+        <tr>
+          <th>#</th>
+          <th [class.active]="order === 'name'"
+            (click)="setOrder('name')">
+          Name <span [hidden]="order !== 'name'"> <span [hidden]="reverse">▼</span
+          ><span [hidden]="!reverse">▲</span>
+        </span>
+        </th>
+          <th>Description</th>
+          <th [class.active]="order === 'status'"
+            (click)="setOrder('status')">
+          Status <span [hidden]="order !== 'status'"> <span [hidden]="reverse">▼</span
+          ><span [hidden]="!reverse">▲</span>
+        </span>
+        </th>
+         <th class="text-center" [class.active]="order === 'priority'"
+            (click)="setOrder('priority')">
+          Priority
+          <span [hidden]="order !== 'priority'"> <span [hidden]="reverse">▼</span
+          ><span [hidden]="!reverse">▲</span>
+        </span>
+        </th>
+          <th class="text-center">Action</th>
+        </tr>
+      	<tr *ngFor="let ticket of tickets | orderBy: order:reverse:'case-insensitive';let i=index">
+      		<td><i class="fa fa-circle" [ngClass]="ticket.status == 'Done' ? 'text-success' : ticket.status == 'Not started' ? 'text-danger' : ticket.status == 'Running' ? 'text-primary' : 'text-warning'" aria-hidden="true"></i></td>
+      		<td><a class="text-secondary" routerLink="">{{ticket.name}}</a></td>
+          <td width="30%">{{ticket.Description}}</td>
+      		<td>
+			    <div class="badge w-100 p-1" [ngClass]="ticket.status == 'Done' ? 'badge-success' : ticket.status == 'Not started' ? 'badge-danger' : ticket.status == 'Running' ? 'badge-primary' : 'btn-warning'">{{ticket.status}}</div>
+      		</td>
+          <td class="text-center">{{ticket.priority}}</td>
+          <td class="text-center"><i class="fa fa-edit text-secondary"></i> | <i class="fa fa-trash text-danger"></i> | <i class="fa fa-eye text-primary"></i></td>
+      	</tr>
+      </table>
+<!-- End List of Tickets -->
+</div>
